@@ -799,7 +799,7 @@ const job = schedule.scheduleJob('25 * * * *', function(){
       console.log("Scans for the next hour:")
       console.log(results)
       results.forEach(function(data){
-      let alarmtimer=moment(data.time).format('mm')*1000//*60 //1000 milliseconds * 60 seconds to get 1 minute SET THIS TO PROPER TIME ON ACTUAL DEPLOYMENT
+      let alarmtimer=moment(data.time).format('mm')*1000*60 //1000 milliseconds * 60 seconds to get 1 minute then multiply to the minute of the actual schedule SET THIS TO PROPER TIME ON ACTUAL DEPLOYMENT
         
       console.log(data.area+":"+data.time)
       setTimeout(()=>{
@@ -912,7 +912,7 @@ function alarm(data){
     }); 
   })
 })
-  },30/*60*/*1000)//CHANGE THIS TO 10 MINUTES ON ACTUAL DEPLOYMENT
+  },10*60**1000)//CHANGE THIS TO 10 MINUTES ON ACTUAL DEPLOYMENT
 return
 }
 
