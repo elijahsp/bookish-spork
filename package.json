@@ -1,0 +1,21 @@
+{
+  "name": "guard-patrol-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "mqtt": "^4.2.6",
+    "mysql": "^2.18.1",
+    "node-schedule": "^2.0.0",
+    "random-minute": "^1.0.4"
+  }
+}
