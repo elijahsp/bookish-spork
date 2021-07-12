@@ -20,8 +20,8 @@ let connection = mysql.createConnection({
   database: 'guard_patrol'
 });
 const query=util.promisify(connection.query).bind(connection)
-app.listen(5500, () => {
-  console.log("server start port 5500");
+app.listen(5000, () => {
+  console.log("server start port 5000");
 });
 app.get("/devices",authenticateAdmin, async (req, res) => {
   try {
