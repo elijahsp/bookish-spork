@@ -23,7 +23,7 @@ const query=util.promisify(connection.query).bind(connection)
 app.listen(5500, () => {
   console.log("server start port 5500");
 });
-app.get("/devices", async (req, res) => {
+app.get("/devices",authenticateAdmin, async (req, res) => {
   try {
     let sql = `SELECT * FROM devices`;
     
@@ -56,7 +56,7 @@ app.post("/editdevice",authenticateAdmin, async(req,res)=>{
   }catch (err) {
     console.error(err.message);}
 })
-app.post("/adddevice", async(req,res)=>{
+app.post("/adddevice",authenticateAdmin, async(req,res)=>{
   try{
     let device=req.body
     let sql = `INSERT INTO devices(deviceNo,tag,assignedUser)
@@ -104,7 +104,7 @@ app.post("/editarea",authenticateAdmin, async(req,res)=>{
   }catch (err) {
     console.error(err.message);}
 })
-app.post("/addarea", async(req,res)=>{
+app.post("/addarea",authenticateAdmin, async(req,res)=>{
   try{
     let area=req.body
     let sql = `INSERT INTO areas(area,tag)
@@ -150,7 +150,7 @@ app.get("/guards",authenticateToken, async (req, res) => {
   }
 });
 
-app.post("/editsuper", async(req,res)=>{
+app.post("/editsuper",authenticateAdmin, async(req,res)=>{
   try{
     supervisor=req.body
     let logger
@@ -182,7 +182,7 @@ app.post("/editsuper", async(req,res)=>{
 })
 
 
-app.post("/addsuper", async(req,res)=>{
+app.post("/addsuper",authenticateAdmin, async(req,res)=>{
   try{
     let supervisor=req.body
     let logger
@@ -227,7 +227,7 @@ app.post("/disablesuper", async(req,res)=>{
   }
 })
 
-app.post("/deletesuper", async(req,res)=>{
+app.post("/deletesuper",authenticateAdmin, async(req,res)=>{
   try{
     let supervisor=req.body
     let logger
@@ -358,7 +358,7 @@ app.post("/deleteguard",authenticateAdmin, async(req,res)=>{
   }
 })
 
-app.post("/addpatrol", async(req,res)=>{
+app.post("/addpatrol",authenticateAdmin, async(req,res)=>{
   try {
     let scans=req.body
     let logger
@@ -396,7 +396,7 @@ app.post("/addpatrol", async(req,res)=>{
     console.log(error)
   }
 })
-app.post("/editpatrol", async(req,res)=>{
+app.post("/editpatrol",authenticateAdmin, async(req,res)=>{
   try{
     let logger
     let scans=req.body
@@ -436,7 +436,7 @@ app.post("/editpatrol", async(req,res)=>{
     console.log(error)
   }
 })
-app.post("/deletepatrol", async(req,res)=>{
+app.post("/deletepatrol",authenticateAdmin, async(req,res)=>{
   try{
     let scans=req.body
     console.log(scans)
@@ -483,7 +483,7 @@ app.post("/deletepatrol", async(req,res)=>{
     console.log(error)
   }
 })
-app.get("/getscan", async(req,res)=>{
+app.get("/getscan",authenticateAdmin, async(req,res)=>{
   try {
     let sql = `SELECT * FROM scans`;
     connection.query(sql, (error, results, fields) => {
@@ -507,7 +507,7 @@ app.get("/getscan", async(req,res)=>{
       console.error(err.message);
   }
 })
-app.post("/myscan", async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR OWN SCHEDULES
+app.post("/myscan",authenticateToken, async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR OWN SCHEDULES
   try {
     console.log(req.body)
     let currentUser
@@ -541,7 +541,7 @@ app.post("/myscan", async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR OWN SC
       console.error(err.message);
   }
 })
-app.post("/myfinished", async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR PAST SCHEDULES
+app.post("/myfinished",authenticateAdmin, async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR PAST SCHEDULES
   try {
     console.log(req.body)
     let currentUser
@@ -573,7 +573,7 @@ app.post("/myfinished", async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR PA
       console.error(err.message);
   }
 })
-app.get("/finished", async(req,res)=>{
+app.get("/finished",authenticateAdmin, async(req,res)=>{
   try {
     let sql = `SELECT * FROM finished
               WHERE status<>"deleted"`;
@@ -595,7 +595,7 @@ app.get("/finished", async(req,res)=>{
   }
 })
 
-app.get("/patrollogs", async (req,res)=>{//THIS IS LOGS FOR CREATED/MODIFIED SCHEDULS
+app.get("/patrollogs",authenticateAdmin, async (req,res)=>{//THIS IS LOGS FOR CREATED/MODIFIED SCHEDULS
   try {
     
     let logcontainer//,logcontainer2,logcontainerfinal
@@ -621,7 +621,7 @@ app.get("/patrollogs", async (req,res)=>{//THIS IS LOGS FOR CREATED/MODIFIED SCH
   }
 })
 
-app.get("/accountslogs", async (req,res)=>{//THIS ONE IS FOR CREATION/MODIFICIATION LOGS ON ACCOUNTS
+app.get("/accountslogs",authenticateAdmin, async (req,res)=>{//THIS ONE IS FOR CREATION/MODIFICIATION LOGS ON ACCOUNTS
   try {
     
     let logcontainer//,logcontainer2,logcontainerfinal
