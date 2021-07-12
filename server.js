@@ -541,7 +541,7 @@ app.post("/myscan",authenticateToken, async(req,res)=>{//THIS ONE IS FOR USERS T
       console.error(err.message);
   }
 })
-app.post("/myfinished",authenticateAdmin, async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR PAST SCHEDULES
+app.post("/myfinished",authenticateToken, async(req,res)=>{//THIS ONE IS FOR USERS TO GET THEIR PAST SCHEDULES
   try {
     console.log(req.body)
     let currentUser
