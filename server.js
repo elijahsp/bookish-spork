@@ -16,7 +16,7 @@ var client  = mqtt.connect('mqtt://192.168.32.121')
 let connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'kccmall',
+  password: 'password',
   database: 'guard_patrol'
 });
 const query=util.promisify(connection.query).bind(connection)
